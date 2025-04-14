@@ -29,11 +29,6 @@ export default function Page() {
             expand: "quiz_id",
           });
 
-        console.log({
-          modules_progress: modules_progress.items,
-          quiz_progress: quiz_progress.items,
-        });
-
         return {
           modules_progress: modules_progress.items,
           quiz_progress: quiz_progress.items,
@@ -127,7 +122,10 @@ export default function Page() {
         {data && data!.modules_progress.length > 0 && (
           <View className="bg-gray-100 rounded-3xl border border-gray-300 shadow gap-2 p-4">
             {data!.modules_progress.map((module) => (
-              <Pressable className="flex-row gap-4 items-center text-sm text-gray-700 bg-gray-50 rounded-3xl p-4">
+              <Pressable
+                key={module.id}
+                className="flex-row gap-4 items-center text-sm text-gray-700 bg-gray-50 rounded-3xl p-4"
+              >
                 <Text style={{ fontFamily: WorkSansFonts.WorkSans_400Regular }}>
                   {module.expand.module_id.title}
                 </Text>
@@ -152,8 +150,11 @@ export default function Page() {
         )}
         {data && data!.quiz_progress.length > 0 && (
           <View className="bg-gray-100 rounded-3xl border border-gray-300 shadow gap-2 p-4">
-            {data!.modules_progress.map((quiz) => (
-              <Pressable className="flex-row gap-4 items-center text-sm text-gray-700 bg-gray-50 rounded-3xl p-4">
+            {data!.quiz_progress.map((quiz) => (
+              <Pressable
+                key={quiz.id}
+                className="flex-row gap-4 items-center text-sm text-gray-700 bg-gray-50 rounded-3xl p-4"
+              >
                 <Text style={{ fontFamily: WorkSansFonts.WorkSans_400Regular }}>
                   {quiz.expand.quiz_id.title}
                 </Text>

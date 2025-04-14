@@ -64,7 +64,7 @@ export default function Page() {
             className="gap-4 p-4 bg-gray-100 rounded-3xl border border-gray-300 shadow"
             onPress={() =>
               router.push({
-                pathname: "/(student)/[module]",
+                pathname: "/(student)/module/[module]",
                 params: { module: module.id },
               })
             }
