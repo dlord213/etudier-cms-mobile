@@ -1,8 +1,8 @@
 import * as SplashScreen from "expo-splash-screen";
+import usePocketBase from "@/stores/usePocketBase";
 
 import "@/global.css";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
-
 import { useEffect } from "react";
 import { Stack } from "expo-router";
 import {
@@ -17,9 +17,11 @@ import {
   WorkSans_900Black,
   useFonts,
 } from "@expo-google-fonts/work-sans";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import "../global.css";
 
+const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -34,10 +36,12 @@ export default function RootLayout() {
     WorkSans_800ExtraBold,
     WorkSans_900Black,
   });
+  const { initializePocketBase } = usePocketBase();
 
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
+      initializePocketBase();
     }
   }, [loaded, error]);
 
@@ -46,11 +50,14 @@ export default function RootLayout() {
   }
 
   return (
-    <GluestackUIProvider mode="light">
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(auth)" />
-      </Stack>
-    </GluestackUIProvider>
+    <QueryClientProvider client={queryClient}>
+      <GluestackUIProvider mode="light">
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(student)" />
+        </Stack>
+      </GluestackUIProvider>
+    </QueryClientProvider>
   );
 }
