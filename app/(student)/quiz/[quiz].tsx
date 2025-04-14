@@ -125,7 +125,7 @@ export default function Page() {
         name="arrow-back"
         color={"#242424"}
         onPress={() => router.back()}
-      /> q
+      />
       <Text
         className="text-4xl"
         style={{ fontFamily: WorkSansFonts.WorkSans_700Bold }}
