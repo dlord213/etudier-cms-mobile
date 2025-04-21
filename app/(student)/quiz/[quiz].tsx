@@ -52,6 +52,9 @@ export default function Page() {
         score: correct,
         percent: percentScore,
       });
+      setScore(correct);
+      setPercent(percentScore);
+      setSubmitted(true);
 
       return true;
     } catch (err) {
@@ -64,7 +67,9 @@ export default function Page() {
     setErrorMessage(null);
 
     const hasProgress = await checkProgress();
-    if (hasProgress) return;
+    if (hasProgress) {
+      return;
+    }
 
     try {
       const userId = instance!.authStore.record!.id;
@@ -94,8 +99,8 @@ export default function Page() {
     }
   };
 
-  const { data }: { data: any } = useQuery({
-    queryKey: [quiz],
+  const { data, isFetching } = useQuery({
+    queryKey: [quiz, "[quiz]"],
     queryFn: async () => {
       try {
         const record = await instance!
@@ -112,11 +117,13 @@ export default function Page() {
         return err;
       }
     },
+    refetchOnMount: true,
+    refetchOnReconnect: true,
   });
 
   const pages = [
     <>
-      {data && (
+      {!isFetching && (
         <>
           <MaterialIcons
             size={24}
@@ -168,7 +175,7 @@ export default function Page() {
       )}
     </>,
     <>
-      {data && (
+      {!isFetching && (
         <>
           <MaterialIcons
             size={24}
@@ -202,52 +209,53 @@ export default function Page() {
                 </Text>
 
                 <View className="flex flex-col gap-2">
-                  {Array.from({ length: Math.ceil(q.options.length / 2) }).map(
-                    (_, rowIndex) => {
-                      const start = rowIndex * 2;
-                      const rowOptions = q.options.slice(start, start + 2);
+                  {answers &&
+                    Array.from({ length: Math.ceil(q.options.length / 2) }).map(
+                      (_, rowIndex) => {
+                        const start = rowIndex * 2;
+                        const rowOptions = q.options.slice(start, start + 2);
 
-                      return (
-                        <View key={rowIndex} className="flex flex-row gap-2">
-                          {rowOptions.map((opt: string, oIndex: number) => {
-                            const optionIndex = start + oIndex;
-                            return (
-                              <Pressable
-                                key={optionIndex}
-                                onPress={() =>
-                                  handleSelect(qIndex, optionIndex)
-                                }
-                                disabled={submitted}
-                                className={`flex-1 px-4 py-2 rounded-3xl ${
-                                  answers[qIndex] === optionIndex
-                                    ? "bg-blue-500"
-                                    : "bg-gray-100 border border-gray-300"
-                                }`}
-                              >
-                                <Text
-                                  className={`${
+                        return (
+                          <View key={rowIndex} className="flex flex-row gap-2">
+                            {rowOptions.map((opt: string, oIndex: number) => {
+                              const optionIndex = start + oIndex;
+                              return (
+                                <Pressable
+                                  key={optionIndex}
+                                  onPress={() =>
+                                    handleSelect(qIndex, optionIndex)
+                                  }
+                                  disabled={submitted}
+                                  className={`flex-1 px-4 py-2 rounded-3xl ${
                                     answers[qIndex] === optionIndex
-                                      ? "text-white"
-                                      : "text-gray-800"
+                                      ? "bg-blue-500"
+                                      : "bg-gray-100 border border-gray-300"
                                   }`}
-                                  style={{
-                                    fontFamily:
-                                      WorkSansFonts.WorkSans_400Regular,
-                                  }}
                                 >
-                                  {opt}
-                                </Text>
-                              </Pressable>
-                            );
-                          })}
-                          {/* Fill empty space if only one item in row */}
-                          {rowOptions.length === 1 && (
-                            <View className="flex-1" />
-                          )}
-                        </View>
-                      );
-                    }
-                  )}
+                                  <Text
+                                    className={`${
+                                      answers[qIndex] === optionIndex
+                                        ? "text-white"
+                                        : "text-gray-800"
+                                    }`}
+                                    style={{
+                                      fontFamily:
+                                        WorkSansFonts.WorkSans_400Regular,
+                                    }}
+                                  >
+                                    {opt}
+                                  </Text>
+                                </Pressable>
+                              );
+                            })}
+                            {/* Fill empty space if only one item in row */}
+                            {rowOptions.length === 1 && (
+                              <View className="flex-1" />
+                            )}
+                          </View>
+                        );
+                      }
+                    )}
                 </View>
               </View>
             ))}
