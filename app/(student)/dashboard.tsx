@@ -48,7 +48,7 @@ export default function Page() {
   }
 
   return (
-    <ScrollView contentContainerClassName="bg-white p-8 gap-8">
+    <ScrollView contentContainerClassName="bg-white p-8 gap-8" className="bg-white">
       <View className="flex-row justify-between items-center p-4 bg-gray-100 rounded-3xl border border-gray-300 shadow">
         <View className="">
           <Text
@@ -92,9 +92,10 @@ export default function Page() {
             Modules
           </Text>
         </Pressable>
+        {/* */}
         <Pressable
           onPress={() => router.push("/(student)/quiz")}
-          className="flex-1 gap-4 p-4 bg-gray-100 rounded-3xl border border-gray-300 shadow items-center"
+          className="hidden flex-1 gap-4 p-4 bg-gray-100 rounded-3xl border border-gray-300 shadow items-center"
         >
           <MaterialIcons name="quiz" size={96} color={"#242424"} />
           <Text
@@ -134,7 +135,7 @@ export default function Page() {
           </View>
         )}
       </View>
-      <View className="flex-col gap-4">
+      <View className="flex-col hidden gap-4">
         <Text
           style={{ fontFamily: WorkSansFonts.WorkSans_700Bold }}
           className="text-[#242424] text-4xl"

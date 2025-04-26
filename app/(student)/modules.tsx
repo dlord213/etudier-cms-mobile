@@ -54,7 +54,6 @@ export default function Page() {
             Modules
           </Text>
         </View>
-        <MaterialIcons name="search" size={24} color={"#242424"} />
       </View>
 
       <ScrollView contentContainerClassName="gap-4">
