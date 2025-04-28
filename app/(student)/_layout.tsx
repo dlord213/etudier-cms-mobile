@@ -7,8 +7,9 @@ export default function Layout() {
       <Stack.Screen name="profile" />
       <Stack.Screen name="modules" />
       <Stack.Screen name="quiz" />
-      <Stack.Screen name="/module/[module]" />
-      <Stack.Screen name="/quiz/[quiz]" />
+      <Stack.Screen name="edit" />
+      <Stack.Screen name="module/[module]" />
+      <Stack.Screen name="quiz/[quiz]" />
     </Stack>
   );
 }

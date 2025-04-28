@@ -48,7 +48,10 @@ export default function Page() {
   }
 
   return (
-    <ScrollView contentContainerClassName="bg-white p-8 gap-8" className="bg-white">
+    <ScrollView
+      contentContainerClassName="bg-white p-8 gap-8"
+      className="bg-white"
+    >
       <View className="flex-row justify-between items-center p-4 bg-gray-100 rounded-3xl border border-gray-300 shadow">
         <View className="">
           <Text
@@ -95,7 +98,7 @@ export default function Page() {
         {/* */}
         <Pressable
           onPress={() => router.push("/(student)/quiz")}
-          className="hidden flex-1 gap-4 p-4 bg-gray-100 rounded-3xl border border-gray-300 shadow items-center"
+          className="flex-1 gap-4 p-4 bg-gray-100 rounded-3xl border border-gray-300 shadow items-center"
         >
           <MaterialIcons name="quiz" size={96} color={"#242424"} />
           <Text

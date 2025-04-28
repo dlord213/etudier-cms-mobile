@@ -44,7 +44,7 @@ export default function Index() {
 
       setIsLoggedIn(true);
       setUserRecord(user);
-      router.push("/(student)/dashboard");
+      router.replace("/(student)/dashboard");
     } catch (err) {
       setErrorMsg(`Error: ${err.message || err}`);
     } finally {
@@ -107,18 +107,6 @@ export default function Index() {
           </View>
         )}
       </View>
-      <View className="border-t border-gray-200 mx-8" />
-      <Pressable
-        className="p-4 bg-gray-100 border border-gray-300 shadow disabled:bg-green-300 rounded-3xl text-center mx-8"
-        onPress={() => router.replace("/(auth)/register")}
-      >
-        <Text
-          style={{ fontFamily: WorkSansFonts.WorkSans_400Regular }}
-          className="text-center"
-        >
-          Register
-        </Text>
-      </Pressable>
     </SafeAreaView>
   );
 }

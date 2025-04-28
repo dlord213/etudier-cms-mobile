@@ -36,7 +36,6 @@ export default function Page() {
           const url = instance!.files.getURL(record, file);
           temp.push({ url: url, title: url.split("/").pop() });
         }
-        console.log(record);
 
         return { ...record, files: temp };
       } catch (err) {
@@ -199,6 +198,7 @@ export default function Page() {
           </Text>
           {data.files.map((file) => (
             <Pressable
+              key={file.url}
               onPress={async () => await Linking.openURL(file.url)}
               className="flex-row gap-4 items-center text-sm text-gray-700 bg-gray-50 rounded-3xl p-4"
             >

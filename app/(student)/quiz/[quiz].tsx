@@ -278,7 +278,7 @@ export default function Page() {
               )}
             </Pressable>
           ) : (
-            <View className="mt-6 space-y-2">
+            <View className="p-4 bg-gray-100 rounded-3xl ">
               <Text
                 className="text-green-600 font-bold"
                 style={{ fontFamily: WorkSansFonts.WorkSans_700Bold }}
